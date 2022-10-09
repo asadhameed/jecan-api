@@ -10,6 +10,8 @@ const login = require("../controllers/login");
 
 const { paramsId, headerUserId } = require("../middleware/objectIdvalidation");
 const { userAuth, isLogin } = require("../../src/middleware/auth");
+const { request } = require("http");
+const { response } = require("express");
 
 module.exports = (app) => {
   app.use(
@@ -25,6 +27,9 @@ module.exports = (app) => {
   });
   app.use(express.json());
   app.use(bodyParse.urlencoded({ extended: true }));
+  app.get("/", (request, response) => {
+    response.send("hello world");
+  });
 
   app.post("/user/login", login.userLogin);
   app.post("/user/registration", registerController.createUser);
